@@ -1,40 +1,1085 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Grownex Clone</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🥇 GrowNex</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #8a2be2 0%, #4b0082 100%);
+            --secondary-gradient: linear-gradient(135deg, #ff8a00 0%, #e52e71 100%);
+            --accent-gradient: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            --dark-bg: #0f0f1a;
+            --card-bg: rgba(26, 26, 46, 0.8);
+            --card-light: rgba(22, 33, 62, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #b8c2d9;
+            --text-muted: #6b7280;
+            --border-color: rgba(255, 255, 255, 0.15);
+            --shadow-light: rgba(255, 255, 255, 0.1);
+            --shadow-dark: rgba(0, 0, 0, 0.4);
+            --accent-blue: #6a5acd;
+            --accent-purple: #9370db;
+            --accent-pink: #ff69b4;
+            --success-color: #00d084;
+            --warning-color: #ffb347;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+            overflow: hidden;
+        }
+
+        .background-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(138, 43, 226, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 30%, rgba(255, 105, 180, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(106, 90, 205, 0.2) 0%, transparent 50%);
+        }
+
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 30px 30px;
+            opacity: 0.5;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.4);
+            animation: logoFloat 4s ease-in-out infinite;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .title {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #b8c2d9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 20px rgba(138, 43, 226, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 700px;
+            margin: 1rem auto 0;
+            line-height: 1.7;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .host-section {
+            background: rgba(26, 26, 46, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px var(--shadow-dark);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .host-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .host-label i {
+            color: var(--accent-blue);
+        }
+
+        .host-textarea {
+            width: 100%;
+            height: auto;
+            box-sizing: border-box;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 400;
+            padding: 0.4rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            background: var(--card-light);
+            color: var(--text-primary);
+            resize: none;
+            transition: all 0.3s ease;
+            line-height: 1.6;
+            white-space: pre;
+            overflow: hidden;
+        }
+
+        .host-textarea:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        .host-textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
+        }
+
+        .button-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (max-width: 1024px) {
+            .button-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            min-height: 56px;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-gradient);
+            color: white;
+            box-shadow: 0 8px 24px rgba(245, 87, 108, 0.3);
+        }
+
+        .btn-accent {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 8px 24px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 2s linear infinite;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .instructions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+
+        .instruction-card {
+            background: rgba(26, 26, 46, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px var(--shadow-dark);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 1s ease-out both;
+        }
+
+        .instruction-card:nth-child(1) {
+            animation-delay: 0.4s;
+        }
+
+        .instruction-card:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+
+        .instruction-card:nth-child(3) {
+            animation-delay: 0.8s;
+        }
+
+        .instruction-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 24px 48px var(--shadow-dark);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .card-icon.android {
+            background: var(--success-color);
+        }
+
+        .card-icon.ios {
+            background: var(--text-muted);
+        }
+
+        .card-icon.windows {
+            background: var(--accent-blue);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .card-steps li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .card-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .card-steps strong {
+            color: var(--text-primary);
+        }
+
+        .card-steps code {
+            background: var(--card-light);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--accent-blue);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-steps kbd {
+            background: var(--card-light);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--accent-purple);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            animation: fadeIn 2s ease-out;
+        }
+
+        .footer-content {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .developer-credit {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            border: 1px solid transparent;
+        }
+
+        .developer-credit:hover {
+            color: var(--accent-purple);
+            border-color: var(--border-color);
+            background: var(--card-bg);
+            transform: translateY(-2px);
+        }
+
+        .discord-floater {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #5865f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(88, 101, 242, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: floatUpDown 3s ease-in-out infinite;
+        }
+
+        .discord-floater:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 32px rgba(88, 101, 242, 0.6);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes logoFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+
+            50% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            75% {
+                transform: translateY(-10px) rotate(-2deg);
+            }
+        }
+
+        @keyframes floatUpDown {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .host-section {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .instructions {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .instruction-card {
+                padding: 1.5rem;
+            }
+
+            .discord-floater {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .host-textarea {
+                font-size: 0.875rem;
+                padding: 1rem;
+            }
+
+            .card-steps li {
+                padding-left: 2.5rem;
+                font-size: 0.9rem;
+            }
+
+            .card-steps li::before {
+                width: 1.5rem;
+                height: 1.5rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        .success-animation {
+            animation: successPulse 0.6s ease-out;
+        }
+
+        @keyframes successPulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .title.shine-effect {
+            position: relative;
+            background: linear-gradient(120deg, #b8b8b8 30%, #ffffff 50%, #fff8f8 70%);
+            background-size: 200% auto;
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            animation: shineText 5s linear infinite;
+
+        }
+
+        @keyframes shineText {
+            0% {
+                background-position: 200% center;
+            }
+
+            100% {
+                background-position: -200% center;
+            }
+        }
+
+        .floater-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: flex-end;
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+
+        .floater-button {
+            width: 60px;
+            height: 60px;
+            background: #5865f2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .floater-hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+        }
+
+        .floater-visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+        }
+
+        .discord-btn {
+            background: #5865f2;
+        }
+    </style>
 </head>
+
 <body>
-  <header>
-    <h1>Grownex</h1>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#features">Features</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <section id="home" class="hero">
-    <h2>Welcome to Grownex</h2>
-    <p>Your ultimate Growtopia experience</p>
-    <button id="get-started">Get Started</button>
-  </section>
-
-  <section id="features">
-    <h2>Features</h2>
-    <div class="cards">
-      <div class="card"><h3>Fast</h3><p>Ultra-fast load times.</p></div>
-      <div class="card"><h3>Secure</h3><p>Rock solid HTTPS.</p></div>
-      <div class="card"><h3>Custom</h3><p>Your style, your branding.</p></div>
+    <div class="background-container">
+        <div class="background-gradient"></div>
+        <div class="background-pattern"></div>
     </div>
-  </section>
+    <div id="particles-js"></div>
 
-  <footer>
-    <p>© 2025 Grownex. All rights reserved.</p>
-  </footer>
+    <div class="container">
+        <header class="header">
 
-  <script src="main.js"></script>
+            <h1 class="title shine-effect">GrowNex</h1>
+            <p class="subtitle">Connect to your Growtopia private server with enhanced features and a thriving economy
+            </p>
+        </header>
+
+        <textarea id="hostText" hidden>
+91.132.49.134 growtopia1.com
+91.132.49.134 growtopia2.com
+91.132.49.134 www.growtopia1.com
+91.132.49.134 www.growtopia2.com
+</textarea>
+
+
+
+        <section class="host-section" style="margin-top: 2rem;">
+            <div class="host-label">
+                <i class="material-icons-round">extension</i>
+                ALL HOST
+            </div>
+            <div class="button-grid">
+                <button class="btn btn-primary" onclick="copyHost()">
+                    <i class="material-icons-round">content_copy</i>
+                    Copy IP
+                </button>
+                <button class="btn btn-secondary" onclick="downloadHost()">
+                    <i class="material-icons-round">download</i>
+                    Download Host File
+                </button>
+                <button class="btn btn-accent" onclick="copyPowerTunnelURL()">
+                    <i class="material-icons-round">link</i>
+                    Power Tunnel URL
+                </button>
+                <button class="btn btn-success" onclick="copyIOS()">
+                    <i class="material-icons-round">phone_iphone</i>
+                    IOS Host URL
+                </button>
+            </div>
+        </section>
+
+        <section class="instructions">
+            <div class="instruction-card">
+                <div class="host-label" style="margin-bottom: 2rem;">
+                    <i class="material-icons-round">dns</i>
+                    CARA BERMAIN
+                </div>
+
+                <div class="card-header">
+                    <div class="card-icon android">
+                        <i class="material-icons-round">android</i>
+                    </div>
+                    <h3 class="card-title">Android Setup</h3>
+                </div>
+                <ol class="card-steps">
+                    <li>
+                        Download the <a href="https://sfile.mobi/9yeA3hP6fYz" target="_blank"
+                            style="color: var(--accent-blue); font-weight: 600; text-decoration: underline;">PowerTunnel</a>
+                    </li>
+                    <li>Click the <strong>PowerTunnel URL</strong> button above to copy the host URL</li>
+                    <li>Open PowerTunnel, tap the menu (☰), then select <strong>Host Settings</strong></li>
+                    <li>Paste the copied URL and set host update period to <strong>"on start"</strong></li>
+                    <li>Launch Growtopia and enjoy your private server experience!</li>
+                </ol>
+
+                <div class="card-header" style="margin-top: 2rem;">
+                    <div class="card-icon ios">
+                        <i class="material-icons-round">phone_iphone</i>
+                    </div>
+                    <h3 class="card-title">iOS Setup (Surge 5)</h3>
+                </div>
+                <ol class="card-steps">
+                    <li>
+                        Download <a href="https://apps.apple.com/app/surge-5/id1442620678" target="_blank"
+                            style="color: var(--accent-purple); font-weight: 600; text-decoration: underline;">Surge
+                            5</a> from the App Store
+                    </li>
+                    <li>Tap <strong>"OK"</strong>, then select <strong>"Default.conf"</strong></li>
+                    <li>Go to <strong>"IMPORT"</strong> → <strong>"Download Profile from URL"</strong></li>
+                    <li>Enter the URL from the <strong>iOS Host URL</strong> button above</li>
+                    <li>Tap <strong>"OK"</strong> and <strong>"Done"</strong>, then <strong>"SETUP"</strong></li>
+                    <li>Allow VPN configuration and launch Growtopia!</li>
+                </ol>
+
+                <div class="card-header" style="margin-top: 2rem;">
+                    <div class="card-icon windows">
+                        <i class="material-icons-round">laptop_windows</i>
+                    </div>
+                    <h3 class="card-title">Windows Setup</h3>
+                </div>
+                <ol class="card-steps">
+                    <li>Press <kbd>⊞ Win</kbd> + <kbd>R</kbd> to open the Run dialog</li>
+                    <li>Type <code>C:\Windows\System32\drivers\etc</code> and press Enter</li>
+                    <li>Locate and right-click the <code>hosts</code> file</li>
+                    <li>Open with <strong>Notepad</strong> (Run as Administrator if needed)</li>
+                    <li>
+                        Add the
+                        <button onclick="copyHost()" style="
+                            font-size: 0.7rem;
+                            padding: 2px 10px;
+                            margin: 0 6px;
+                            border-radius: 6px;
+                            border: none;
+                            background: var(--accent-blue);
+                            color: white;
+                            cursor: pointer;
+                        ">IP & DOMAIN</button>
+                        entries to the bottom of the file
+                    </li>
+                    <li>Save the file and launch Growtopia to connect!</li>
+                </ol>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-content">
+                © 2025 GrowNex. All rights reserved.
+            </div>
+            <strong><!--DISCORD_FOOTER-->https://discord.gg/promotegtps</strong>
+
+
+
+
+        </footer>
+
+        <div class="floater-container">
+            <div class="floater-button floater-main" onclick="toggleFloatingButtons()">
+                <img src="img/up-arrow.png" alt="Main" style="width: 24px; height: 24px;" />
+            </div>
+            <a href="https://discord.gg/grownex" target="_blank" class="floater-button whatsapp-btn floater-hidden">
+                <img src="img/whatsapp.png" alt="WhatsApp" style="width: 24px; height: 24px;" />
+            </a>
+            <a href="https://discord.gg/grownex" target="_blank" class="floater-button discord-btn floater-hidden">
+                <img src="img/discord.png" alt="Discord" style="width: 24px; height: 24px;" />
+            </a>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <script>
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 20,
+                        density: {
+                            enable: true,
+                            value_area: 2000
+                        }
+                    },
+                    color: {
+                        value: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dda0dd', '#98d8c8', '#ff7675']
+                    },
+                    shape: {
+                        type: ['circle', 'triangle', 'polygon'],
+                        stroke: {
+                            width: 0,
+                            color: '#000000'
+                        },
+                        polygon: {
+                            nb_sides: 6
+                        }
+                    },
+                    opacity: {
+                        value: 0.6,
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 1.5,
+                            opacity_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    size: {
+                        value: 4,
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 2,
+                            size_min: 0.5,
+                            sync: false
+                        }
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 180,
+                        color: '#ffffff',
+                        opacity: 0.4,
+                        width: 1.5
+                    },
+                    move: {
+                        enable: true,
+                        speed: 3,
+                        direction: 'none',
+                        random: true,
+                        straight: false,
+                        out_mode: 'bounce',
+                        bounce: true,
+                        attract: {
+                            enable: true,
+                            rotateX: 600,
+                            rotateY: 1200
+                        }
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: ['grab', 'bubble']
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: ['push', 'repulse', 'remove']
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 50,
+                            line_linked: {
+                                opacity: 0.8,
+                                color: '#ffffff'
+                            }
+                        },
+                        bubble: {
+                            distance: 200,
+                            size: 8,
+                            duration: 2,
+                            opacity: 0.8,
+                            speed: 3
+                        },
+                        repulse: {
+                            distance: 200,
+                            duration: 0.6
+                        },
+                        push: {
+                            particles_nb: 6
+                        },
+                        remove: {
+                            particles_nb: 3
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+
+            function toggleFloatingButtons() {
+                document.querySelectorAll('.whatsapp-btn, .discord-btn').forEach(btn => {
+                    btn.classList.toggle('floater-visible');
+                    btn.classList.toggle('floater-hidden');
+                });
+            }
+
+            function showNotification(message, type = 'success') {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 2rem;
+                    right: 2rem;
+                    padding: 1rem 1.5rem;
+                    border-radius: 12px;
+                    color: white;
+                    font-weight: 500;
+                    z-index: 10000;
+                    transform: translateX(100%);
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+                    backdrop-filter: blur(10px);
+                    max-width: 300px;
+                `;
+
+                if (type === 'success') {
+                    notification.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                } else {
+                    notification.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                }
+
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="material-icons-round" style="font-size: 1.2rem;">
+                            ${type === 'success' ? 'check_circle' : 'error'}
+                        </i>
+                        ${message}
+                    </div>
+                `;
+
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 100);
+
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+
+            function addSuccessAnimation(element) {
+                element.classList.add('success-animation');
+                setTimeout(() => {
+                    element.classList.remove('success-animation');
+                }, 600);
+            }
+            function copyHost() {
+                const hostText = `91.132.49.134 growtopia1.com
+91.132.49.134 growtopia2.com
+91.132.49.134 www.growtopia1.com
+91.132.49.134 www.growtopia2.com`;
+
+                navigator.clipboard.writeText(hostText)
+                    .then(() => {
+                        showNotification('Host configuration copied successfully!');
+                        addSuccessAnimation(document.querySelector('.host-section'));
+                    })
+                    .catch(() => {
+                        showNotification('Failed to copy host configuration', 'error');
+                    });
+            }
+
+            function autoResize(el) {
+                el.style.height = 'auto';
+                el.style.height = el.scrollHeight + 'px';
+            }
+
+            window.addEventListener('DOMContentLoaded', () => {
+                const hostText = document.getElementById('hostText');
+                autoResize(hostText);
+            });
+
+            function downloadHost() {
+                let text = document.getElementById('hostText').value;
+                if (text.startsWith('\uFEFF')) { text = text.slice(1); }
+                text = text.trim();
+                const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "host.txt";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                showNotification('Host file downloaded successfully!');
+            }
+
+            function copyPowerTunnelURL() {
+                const domain = window.location.hostname.replace('.vercel.app', '');
+                const url = `https://${domain}.vercel.app/${domain}-host.txt`;
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('✅ PowerTunnel URL copied!');
+                });
+            }
+
+
+            function copyIOS() {
+                const domain = window.location.hostname;
+                const url = `https://${domain}/iOs`;
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('✅ iOS Host URL copied!');
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                document.querySelectorAll('.instruction-card').forEach(card => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                    card.style.transition = 'all 0.6s ease-out';
+                    observer.observe(card);
+                });
+            });
+        </script>
+
+    </div>
 </body>
+
 </html>
